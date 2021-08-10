@@ -84,9 +84,20 @@ def calculate_metrics(values):
     }
 
 
-if __name__ == "__main__":
-    with open("data.json") as json_file:
+def main(file):
+    with open(file) as json_file:
         data = json.load(json_file).get("data")
 
     values = get_values(data)
     metrics = calculate_metrics(values)
+    print(
+        f"""Revenue: ${values["revenue"]:,.2f}
+Expenses: ${values["expenses"]:,.2f}
+Gross Profit Margin: {metrics["gross_profit_margin"]}%
+Net Profit Margin: {metrics["net_profit_margin"]}%
+Working Capital Ratio: {metrics["working_capital_ratio"]}%"""
+    )
+
+
+if __name__ == "__main__":
+    main("data.json")
