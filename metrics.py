@@ -25,15 +25,13 @@ def get_values(transactions):
         value_type = t["value_type"]
         category = t["account_category"]
         type = t["account_type"]
+
         # Total revenue
         if category == CATEGORY_REVENUE:
             values["revenue"] += value
         # Total expenses
         elif category == CATEGORY_EXPENSE:
             values["expenses"] += value
-        # Gross profit
-        elif type == TYPE_SALES and value_type == VALUE_DEBIT:
-            values["profit"] += value
         # Total assets
         elif (
             category == CATEGORY_ASSETS
@@ -60,6 +58,10 @@ def get_values(transactions):
             and type in TYPES_LIABILITIES
         ):
             values["liability"] -= value
+
+        # Gross profit
+        if type == TYPE_SALES and value_type == VALUE_DEBIT:
+            values["profit"] += value
 
     return values
 
