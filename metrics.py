@@ -65,8 +65,23 @@ def get_values(transactions):
 
 
 def calculate_metrics(values):
-    """Calculate metrics"""
-    pass
+    """Calculates profit and working capital ratio."""
+    if values["revenue"] == 0:
+        gross_profit_margin, net_profit_margin = 0, 0
+    else:
+        gross_profit_margin = round(values["profit"] / values["revenue"] * 100)
+        net_profit_margin = round(
+            (values["revenue"] - values["expenses"]) / values["revenue"] * 100
+        )
+    if values["liability"] == 0:
+        working_capital_ratio = 0
+    else:
+        working_capital_ratio = round(values["assets"] / values["liability"] * 100)
+    return {
+        "gross_profit_margin": gross_profit_margin,
+        "net_profit_margin": net_profit_margin,
+        "working_capital_ratio": working_capital_ratio,
+    }
 
 
 if __name__ == "__main__":
